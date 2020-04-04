@@ -21,7 +21,7 @@ def start(update, context):
 def answer(update, context):
     chat_id = update.effective_chat.id
     text = update.message.text
-    selected = sorted([i for i in data if i['first_team'] == text or i['second_team'] == text], key=key)
+    selected = sorted([i for i in data if i['first_team'].replace(' ', '') == text.replace(' ', '') or i['second_team'].replace(' ', '') == text.replace(' ', '')], key=key)
     if not selected:
         context.bot.send_message(chat_id, "Такой команды не найдено")
     else:
@@ -30,10 +30,10 @@ def answer(update, context):
         for i in range(n):
             cur = selected[i]
             if cur['results']:
-                mes += cur['date'] + ' | <u><i><b>' + cur['first_team'] + '</b></i></u> | ' + \
+                mes += cur['date_real'] + ' | <u><i><b>' + cur['first_team'] + '</b></i></u> | ' + \
                        cur['second_team'] + ' | ' + cur['id'] + '\n'
             else:
-                mes += cur['date'] + ' | ' + cur['first_team'] + ' | <u><i><b>' + \
+                mes += cur['date_real'] + ' | ' + cur['first_team'] + ' | <u><i><b>' + \
                        cur['second_team'] + '</b></i></u> | ' + cur['id'] + '\n'
         context.bot.send_message(chat_id, mes, parse_mode='html')
 
