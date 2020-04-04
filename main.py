@@ -10,9 +10,9 @@ data = loads(open('past_matches.json', 'r').read())
 
 users = {}
 
-games = set([i['game'] for i in data] + ['CS GO'])
+games = list(set([i['game'] for i in data])) + ['CS GO', 'Все игры']
 
-keyboard = ReplyKeyboardMarkup([[i] for i in games], True)
+keyboard = ReplyKeyboardMarkup([[i] for i in games], True, False)
 
 
 def key(x):
